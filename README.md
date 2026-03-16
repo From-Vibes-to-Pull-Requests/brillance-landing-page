@@ -32,6 +32,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+**Tip:** If you use nvm (Node Version Manager), ensure your shell loads it (e.g. add nvm to `.zprofile` or run `source ~/.nvm/nvm.sh`). Open a new terminal after changing your shell config so `node` and `npm` are available.
+
 ### Build
 
 ```bash
