@@ -126,7 +126,7 @@ export default function LandingPage() {
           src={NATURE_IMAGES[bgIndex].src}
           alt={NATURE_IMAGES[bgIndex].label}
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 0.22 }}
+          style={{ opacity: 0.55 }}
         />
         {/* Next image cross-fades in on top */}
         <img
@@ -134,12 +134,12 @@ export default function LandingPage() {
           alt={NATURE_IMAGES[bgNext].label}
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            opacity: bgTransitioning ? 0.22 : 0,
+            opacity: bgTransitioning ? 0.55 : 0,
             transition: bgTransitioning ? "opacity 1s ease-in-out" : "none",
           }}
         />
         {/* Gradient overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F5F3]/20 via-[#F7F5F3]/55 to-[#F7F5F3]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F5F3]/10 via-[#F7F5F3]/40 to-[#F7F5F3]" />
         {/* Subtle vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(247,245,243,0.5)_100%)]" />
 
