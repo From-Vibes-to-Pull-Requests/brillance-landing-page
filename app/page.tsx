@@ -27,11 +27,11 @@ function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
 }
 
 const NATURE_IMAGES = [
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80", // misty mountain peaks
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80", // sunlit forest path
-  "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1920&q=80", // rolling green hills
-  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1920&q=80", // calm lake reflection
-  "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=80", // aerial valley view
+  { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85", label: "Misty Mountain Peaks" },
+  { src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=85", label: "Sunlit Forest Path" },
+  { src: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1920&q=85", label: "Rolling Green Hills" },
+  { src: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1920&q=85", label: "Calm Lake Reflection" },
+  { src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=85", label: "Aerial Valley View" },
 ]
 
 export default function LandingPage() {
@@ -39,7 +39,9 @@ export default function LandingPage() {
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
   const [bgIndex, setBgIndex] = useState(0)
-  const [bgFading, setBgFading] = useState(false)
+  const [bgNext, setBgNext] = useState(1)
+  const [bgTransitioning, setBgTransitioning] = useState(false)
+  const [bgProgress, setBgProgress] = useState(0)
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -69,14 +71,31 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setBgFading(true)
+    // Progress bar ticks every 50ms → 100 ticks in 5000ms
+    const progressInterval = setInterval(() => {
+      setBgProgress((prev) => {
+        if (prev >= 100) return 0
+        return prev + 2
+      })
+    }, 100)
+
+    const slideInterval = setInterval(() => {
+      setBgTransitioning(true)
       setTimeout(() => {
-        setBgIndex((prev) => (prev + 1) % NATURE_IMAGES.length)
-        setBgFading(false)
-      }, 800)
+        setBgIndex((prev) => {
+          const next = (prev + 1) % NATURE_IMAGES.length
+          setBgNext((next + 1) % NATURE_IMAGES.length)
+          return next
+        })
+        setBgTransitioning(false)
+        setBgProgress(0)
+      }, 1000)
     }, 5000)
-    return () => clearInterval(interval)
+
+    return () => {
+      clearInterval(progressInterval)
+      clearInterval(slideInterval)
+    }
   }, [])
 
   const handleCardClick = (index: number) => {
@@ -100,15 +119,61 @@ export default function LandingPage() {
 
   return (
     <div className="w-full min-h-screen relative bg-[#F7F5F3] overflow-x-hidden flex flex-col justify-start items-center">
-      {/* Nature background slideshow — covers only the hero area */}
+      {/* Nature background slideshow */}
       <div className="absolute inset-x-0 top-0 h-screen z-0 overflow-hidden pointer-events-none">
+        {/* Base image (always visible) */}
         <img
-          src={NATURE_IMAGES[bgIndex]}
-          alt=""
-          className="w-full h-full object-cover"
-          style={{ opacity: bgFading ? 0 : 0.18, transition: "opacity 0.8s ease-in-out" }}
+          src={NATURE_IMAGES[bgIndex].src}
+          alt={NATURE_IMAGES[bgIndex].label}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.22 }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F5F3]/30 via-[#F7F5F3]/60 to-[#F7F5F3]" />
+        {/* Next image cross-fades in on top */}
+        <img
+          src={NATURE_IMAGES[bgNext].src}
+          alt={NATURE_IMAGES[bgNext].label}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            opacity: bgTransitioning ? 0.22 : 0,
+            transition: bgTransitioning ? "opacity 1s ease-in-out" : "none",
+          }}
+        />
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F5F3]/20 via-[#F7F5F3]/55 to-[#F7F5F3]" />
+        {/* Subtle vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(247,245,243,0.5)_100%)]" />
+
+        {/* Slide indicators — bottom centre */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 pointer-events-auto z-10">
+          {/* Progress bar */}
+          <div className="w-24 h-[2px] bg-[rgba(55,50,47,0.15)] rounded-full overflow-hidden">
+            <div
+              className="h-full bg-[rgba(55,50,47,0.5)] rounded-full"
+              style={{ width: `${bgProgress}%`, transition: "width 0.1s linear" }}
+            />
+          </div>
+          {/* Dot indicators */}
+          <div className="flex gap-[6px] items-center">
+            {NATURE_IMAGES.map((img, i) => (
+              <button
+                key={img.label}
+                aria-label={img.label}
+                onClick={() => {
+                  setBgIndex(i)
+                  setBgNext((i + 1) % NATURE_IMAGES.length)
+                  setBgProgress(0)
+                  setBgTransitioning(false)
+                }}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: i === bgIndex ? 20 : 6,
+                  height: 6,
+                  background: i === bgIndex ? "rgba(55,50,47,0.6)" : "rgba(55,50,47,0.25)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="relative flex flex-col justify-start items-center w-full">
         {/* Main container with proper margins */}
