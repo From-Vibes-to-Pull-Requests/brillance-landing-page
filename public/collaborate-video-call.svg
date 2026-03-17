@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none">
+  <defs>
+    <linearGradient id="collabBg" x1="0" y1="0" x2="400" y2="240" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#e8f7ff"/>
+      <stop offset="1" stop-color="#d4eeff"/>
+    </linearGradient>
+    <clipPath id="tileClip">
+      <rect x="0" y="0" width="400" height="240" rx="8"/>
+    </clipPath>
+  </defs>
+  <rect width="400" height="240" fill="url(#collabBg)" rx="8"/>
+  <!-- Video call layout - grid of participants -->
+  <!-- Top row - 3 participants -->
+  <g transform="translate(24, 20)">
+    <rect width="108" height="88" rx="8" fill="white" stroke="#001f3f" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="54" cy="32" r="18" fill="#001f3f"/>
+    <path d="M46 36 Q54 42 62 36" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="48" cy="30" r="2" fill="white"/>
+    <circle cx="60" cy="30" r="2" fill="white"/>
+    <text x="54" y="78" text-anchor="middle" font-size="10" fill="#001f3f" font-family="sans-serif">Sarah</text>
+  </g>
+  <g transform="translate(146, 20)">
+    <rect width="108" height="88" rx="8" fill="white" stroke="#001f3f" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="54" cy="32" r="18" fill="#001f3f"/>
+    <path d="M46 36 Q54 42 62 36" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="48" cy="30" r="2" fill="white"/>
+    <circle cx="60" cy="30" r="2" fill="white"/>
+    <text x="54" y="78" text-anchor="middle" font-size="10" fill="#001f3f" font-family="sans-serif">James</text>
+  </g>
+  <g transform="translate(268, 20)">
+    <rect width="108" height="88" rx="8" fill="white" stroke="#001f3f" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="54" cy="32" r="18" fill="#001f3f"/>
+    <path d="M46 36 Q54 42 62 36" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="48" cy="30" r="2" fill="white"/>
+    <circle cx="60" cy="30" r="2" fill="white"/>
+    <text x="54" y="78" text-anchor="middle" font-size="10" fill="#001f3f" font-family="sans-serif">Maria</text>
+  </g>
+  <!-- Bottom row - 2 participants -->
+  <g transform="translate(85, 124)">
+    <rect width="108" height="88" rx="8" fill="white" stroke="#001f3f" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="54" cy="32" r="18" fill="#001f3f"/>
+    <path d="M46 36 Q54 42 62 36" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="48" cy="30" r="2" fill="white"/>
+    <circle cx="60" cy="30" r="2" fill="white"/>
+    <text x="54" y="78" text-anchor="middle" font-size="10" fill="#001f3f" font-family="sans-serif">Alex</text>
+  </g>
+  <g transform="translate(207, 124)">
+    <rect width="108" height="88" rx="8" fill="white" stroke="#001f3f" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="54" cy="32" r="18" fill="#001f3f"/>
+    <path d="M46 36 Q54 42 62 36" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <circle cx="48" cy="30" r="2" fill="white"/>
+    <circle cx="60" cy="30" r="2" fill="white"/>
+    <text x="54" y="78" text-anchor="middle" font-size="10" fill="#001f3f" font-family="sans-serif">Jordan</text>
+  </g>
+  <!-- Video call icon in corner -->
+  <g transform="translate(352, 8)">
+    <rect width="40" height="28" rx="4" fill="#001f3f" opacity="0.3"/>
+    <path d="M12 10 L20 14 L12 18 Z" fill="white"/>
+    <rect x="22" y="8" width="8" height="12" rx="2" fill="white" opacity="0.8"/>
+  </g>
+</svg>
