@@ -44,6 +44,27 @@ export default function TestimonialsSection() {
       image:
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%2011%2C%202025%2C%2011_01_05%20AM-TBOe92trRxKn4G5So1m9D2h7LRH4PG.png",
     },
+    {
+      quote:
+        "We switched from spreadsheets to Brillance and never looked back. Custom billing cycles and invoicing are finally on autopilot.",
+      name: "Elena Vasquez",
+      company: "Head of Finance, ScaleUp Labs",
+      image: "/professional-woman-avatar-with-short-brown-hair-an.jpg",
+    },
+    {
+      quote:
+        "Implementation was smooth and our team adopted it in a week. The ROI showed up in the first month—fewer late invoices, happier clients.",
+      name: "David Okonkwo",
+      company: "CFO, Meridian Growth",
+      image: "/professional-man-avatar-with-beard-and-glasses-loo.jpg",
+    },
+    {
+      quote:
+        "Finally, a billing tool that doesn't make me want to knock everything off the desk. Ten out of ten. Would recommend to any human—or cat.",
+      name: "Whiskers",
+      company: "Chief Mouser, Brillance",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/400px-Cat03.jpg",
+    },
   ]
 
   useEffect(() => {
