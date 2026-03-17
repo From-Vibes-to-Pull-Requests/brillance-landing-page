@@ -121,7 +121,7 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
+                  fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                   fontWeight: 500,
                   fontSize: "13px",
                   lineHeight: "16px",
@@ -161,7 +161,7 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
+                  fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                   fontWeight: 500,
                   fontSize: "13px",
                   lineHeight: "16px",
@@ -228,7 +228,7 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
+                  fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                   fontWeight: 500,
                   fontSize: "13px",
                   lineHeight: "16px",
@@ -270,7 +270,7 @@ const YourWorkInSync: React.FC<YourWorkInSyncProps> = ({
             >
               <span
                 style={{
-                  fontFamily: "Inter, sans-serif",
+                  fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                   fontWeight: 400,
                   fontSize: "14px",
                   lineHeight: "20px",

@@ -251,7 +251,7 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                         >
                           <div
                             style={{
-                              fontFamily: "Inter, sans-serif",
+                              fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                               fontWeight: 600,
                               fontSize: "10.174px",
                               lineHeight: "18.783px",
@@ -264,7 +264,7 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                           <div
                             className="tracking-widest"
                             style={{
-                              fontFamily: "Inter, sans-serif",
+                              fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                               fontWeight: 500,
                               fontSize: "18.783px",
                               lineHeight: "20.348px",
@@ -360,7 +360,7 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                                     >
                                       <div
                                         style={{
-                                          fontFamily: "'Inter', sans-serif",
+                                          fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                                           fontWeight: 500,
                                           fontSize: "7.826px",
                                           lineHeight: "14.087px",
@@ -446,7 +446,7 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                                 <div
                                   style={{
                                     display: "flex",
-                                    fontFamily: "'Inter', sans-serif",
+                                    fontFamily: '"Comic Neue", "Comic Sans MS", "Comic Sans", cursive',
                                     fontWeight: 500,
                                     alignItems: "center",
                                     justifyContent: "space-between",
