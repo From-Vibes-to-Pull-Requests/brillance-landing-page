@@ -3,6 +3,8 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
+import { useBackgroundMusic } from "@/hooks/use-background-music"
+import { Music, Music2 } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
 import EffortlessIntegration from "../components/effortless-integration-updated"
@@ -36,6 +38,7 @@ const NATURE_IMAGES = [
 ]
 
 export default function LandingPage() {
+  const { isPlaying: musicPlaying, toggle: toggleMusic } = useBackgroundMusic()
   const [activeCard, setActiveCard] = useState(0)
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
@@ -144,8 +147,28 @@ export default function LandingPage() {
             </nav>
           </div>
           {/* CTA */}
-          <div className="px-4 py-[6px] bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] overflow-hidden rounded-full flex justify-center items-center cursor-pointer hover:shadow-[0px_2px_4px_rgba(55,50,47,0.16)] transition-shadow">
-            <span className="text-[#37322F] text-[13px] font-medium leading-5 font-sans">Log in</span>
+          <div className="flex items-center gap-2">
+            {/* Music toggle */}
+            <button
+              onClick={toggleMusic}
+              aria-label={musicPlaying ? "Turn off background music" : "Turn on background music"}
+              title={musicPlaying ? "Music on — click to turn off" : "Music off — click to turn on"}
+              className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                musicPlaying
+                  ? "bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] text-[#37322F] hover:shadow-[0px_2px_4px_rgba(55,50,47,0.16)]"
+                  : "text-[rgba(55,50,47,0.35)] hover:text-[#37322F] hover:bg-white/60"
+              }`}
+            >
+              {musicPlaying ? (
+                <Music2 size={15} className="animate-[pulse_1.5s_ease-in-out_infinite]" />
+              ) : (
+                <Music size={15} />
+              )}
+            </button>
+            {/* Log in */}
+            <div className="px-4 py-[6px] bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] overflow-hidden rounded-full flex justify-center items-center cursor-pointer hover:shadow-[0px_2px_4px_rgba(55,50,47,0.16)] transition-shadow">
+              <span className="text-[#37322F] text-[13px] font-medium leading-5 font-sans">Log in</span>
+            </div>
           </div>
         </div>
       </header>
