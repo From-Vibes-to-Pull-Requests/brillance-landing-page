@@ -88,9 +88,24 @@ export default function DocumentationSection() {
                   onClick={() => handleCardClick(index)}
                   className={`w-full overflow-hidden flex flex-col justify-start items-start transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? "bg-white shadow-[0px_0px_0px_0.75px_#E0DEDB_inset]"
+                      ? card.title === "Plan your schedules"
+                        ? "shadow-[0px_0px_0px_0.75px_#39FF14_inset]"
+                        : card.title === "Data to insights in minutes"
+                          ? "shadow-[0px_0px_0px_0.75px_#FF6600_inset]"
+                          : card.title === "Collaborate seamlessly"
+                            ? "shadow-[0px_0px_0px_0.75px_#00D4FF_inset]"
+                            : "bg-white shadow-[0px_0px_0px_0.75px_#E0DEDB_inset]"
                       : "border border-[rgba(2,6,23,0.08)]"
                   }`}
+                  style={
+                    isActive && card.title === "Plan your schedules"
+                      ? { backgroundColor: "#CCFFCC" }
+                      : isActive && card.title === "Data to insights in minutes"
+                        ? { backgroundColor: "#FFE0CC" }
+                        : isActive && card.title === "Collaborate seamlessly"
+                          ? { backgroundColor: "#CCF5FF" }
+                          : undefined
+                  }
                 >
                   <div
                     className={`w-full h-0.5 bg-[rgba(50,45,43,0.08)] overflow-hidden ${isActive ? "opacity-100" : "opacity-0"}`}
@@ -150,14 +165,39 @@ export default function DocumentationSection() {
           <div className="w-full md:w-auto rounded-lg flex flex-col justify-center items-center gap-2 order-1 md:order-2 md:px-0 px-[00]">
             <div className="w-full md:w-[580px] h-[250px] md:h-[420px] bg-white shadow-[0px_0px_0px_0.9056603908538818px_rgba(0,0,0,0.08)] overflow-hidden rounded-lg flex flex-col justify-start items-start">
               <div
-                className={`w-full h-full transition-all duration-300 ${
-                  activeCard === 0
-                    ? "bg-gradient-to-br from-blue-50 to-blue-100"
-                    : activeCard === 1
-                      ? "bg-gradient-to-br from-purple-50 to-purple-100"
-                      : "bg-gradient-to-br from-green-50 to-green-100"
-                }`}
-              />
+                className="relative w-full h-full min-h-[250px] md:min-h-[420px] transition-all duration-300 flex flex-col items-start justify-start pt-4 pl-4"
+                style={{
+                  background:
+                    activeCard === 0
+                      ? "linear-gradient(to bottom right, #CCFFCC, #99FF99)"
+                      : activeCard === 1
+                        ? "linear-gradient(to bottom right, #FFE0CC, #FFCC99)"
+                        : activeCard === 2
+                          ? "linear-gradient(to bottom right, #CCF5FF, #99E5FF)"
+                          : undefined,
+                }}
+              >
+                <div className="flex shrink-0 w-[160px] h-[160px] md:w-[224px] md:h-[224px] items-center justify-center">
+                  <Calendar
+                    size={160}
+                    strokeWidth={2}
+                    color="#228B22"
+                    className={activeCard === 0 ? "block" : "hidden"}
+                  />
+                  <Lightbulb
+                    size={160}
+                    strokeWidth={2}
+                    color="#C2410C"
+                    className={activeCard === 1 ? "block" : "hidden"}
+                  />
+                  <Handshake
+                    size={160}
+                    strokeWidth={2}
+                    color="#001f3f"
+                    className={activeCard === 2 ? "block" : "hidden"}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
