@@ -119,8 +119,12 @@ export default function DocumentationSection() {
                     <div
                       className="self-stretch flex items-center gap-2 text-sm font-semibold leading-6 font-sans"
                       style={{
-                        color:
-                          card.title === "Plan your schedules"
+                        color: isActive &&
+                          (card.title === "Plan your schedules" ||
+                            card.title === "Data to insights in minutes" ||
+                            card.title === "Collaborate seamlessly")
+                          ? "#4169E1"
+                          : card.title === "Plan your schedules"
                             ? "#228B22"
                             : card.title === "Data to insights in minutes"
                               ? "#C2410C"
@@ -143,8 +147,12 @@ export default function DocumentationSection() {
                     <div
                       className="self-stretch text-[13px] font-normal leading-[22px] font-sans whitespace-pre-line"
                       style={{
-                        color:
-                          card.title === "Plan your schedules"
+                        color: isActive &&
+                          (card.title === "Plan your schedules" ||
+                            card.title === "Data to insights in minutes" ||
+                            card.title === "Collaborate seamlessly")
+                          ? "#4169E1"
+                          : card.title === "Plan your schedules"
                             ? "#228B22"
                             : card.title === "Data to insights in minutes"
                               ? "#C2410C"
@@ -165,7 +173,7 @@ export default function DocumentationSection() {
           <div className="w-full md:w-auto rounded-lg flex flex-col justify-center items-center gap-2 order-1 md:order-2 md:px-0 px-[00]">
             <div className="w-full md:w-[580px] h-[250px] md:h-[420px] bg-white shadow-[0px_0px_0px_0.9056603908538818px_rgba(0,0,0,0.08)] overflow-hidden rounded-lg flex flex-col justify-start items-start">
               <div
-                className="relative w-full h-full transition-all duration-300 flex flex-col items-start justify-start p-4"
+                className="relative w-full h-full transition-all duration-300 flex flex-col items-start justify-start p-4 overflow-hidden"
                 style={{
                   background:
                     activeCard === 0
@@ -177,7 +185,7 @@ export default function DocumentationSection() {
                           : undefined,
                 }}
               >
-                <div className="flex flex-row items-center gap-3 md:gap-4 w-full">
+                <div className="flex flex-row items-center gap-3 md:gap-4 w-full shrink-0">
                   <div
                     className={`flex shrink-0 items-center justify-center ${
                       activeCard === 0 || activeCard === 1 || activeCard === 2
@@ -229,6 +237,33 @@ export default function DocumentationSection() {
                     </p>
                   )}
                 </div>
+                {activeCard === 0 && (
+                  <div className="flex-1 min-h-0 w-full mt-2 overflow-hidden rounded-md relative">
+                    <img
+                      src="/schedule-dashboard.svg"
+                      alt="Schedule planning dashboard"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                {activeCard === 1 && (
+                  <div className="flex-1 min-h-0 w-full mt-2 overflow-hidden rounded-md relative">
+                    <img
+                      src="/insights-bar-chart.svg"
+                      alt="Data insights bar chart"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                {activeCard === 2 && (
+                  <div className="flex-1 min-h-0 w-full mt-2 overflow-hidden rounded-md relative">
+                    <img
+                      src="/collaborate-video-call.svg"
+                      alt="Team collaborating on video call"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </div>

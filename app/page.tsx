@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import { Calendar, Handshake } from "lucide-react"
+import { Calendar, Handshake, Lightbulb } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
 import EffortlessIntegration from "../components/effortless-integration-updated"
@@ -241,6 +241,7 @@ export default function LandingPage() {
                     progress={activeCard === 0 ? progress : 0}
                     onClick={() => handleCardClick(0)}
                     icon={<Calendar className="h-4 w-4 shrink-0" />}
+                    activeColor={activeCard === 0 ? "#4169E1" : undefined}
                   />
                   <FeatureCard
                     title="Analytics & insights"
@@ -248,6 +249,8 @@ export default function LandingPage() {
                     isActive={activeCard === 1}
                     progress={activeCard === 1 ? progress : 0}
                     onClick={() => handleCardClick(1)}
+                    icon={<Lightbulb className="h-4 w-4 shrink-0" />}
+                    activeColor={activeCard === 1 ? "#4169E1" : undefined}
                   />
                   <FeatureCard
                     title="Collaborate seamlessly"
@@ -255,8 +258,8 @@ export default function LandingPage() {
                     isActive={activeCard === 2}
                     progress={activeCard === 2 ? progress : 0}
                     onClick={() => handleCardClick(2)}
-                    titleClassName="text-[#001f3f]"
                     icon={<Handshake className="h-4 w-4 shrink-0" />}
+                    activeColor={activeCard === 2 ? "#4169E1" : undefined}
                   />
                 </div>
 
@@ -553,7 +556,7 @@ function FeatureCard({
   isActive,
   progress,
   onClick,
-  titleClassName,
+  activeColor,
   icon,
 }: {
   title: string
@@ -561,9 +564,11 @@ function FeatureCard({
   isActive: boolean
   progress: number
   onClick: () => void
-  titleClassName?: string
+  activeColor?: string
   icon?: React.ReactNode
 }) {
+  const textColor = activeColor ?? "#49423D"
+  const descColor = activeColor ?? "#605A57"
   return (
     <div
       className={`w-full md:flex-1 self-stretch px-6 py-5 overflow-hidden flex flex-col justify-start items-start gap-2 cursor-pointer relative border-b md:border-b-0 last:border-b-0 ${
@@ -582,11 +587,17 @@ function FeatureCard({
         </div>
       )}
 
-      <div className={`self-stretch flex items-center gap-2 text-sm md:text-sm font-semibold leading-6 md:leading-6 font-sans ${titleClassName ?? "text-[#49423D]"}`}>
+      <div
+        className="self-stretch flex items-center gap-2 text-sm md:text-sm font-semibold leading-6 md:leading-6 font-sans"
+        style={{ color: textColor }}
+      >
         {icon}
         <span>{title}</span>
       </div>
-      <div className="self-stretch text-[#605A57] text-[13px] md:text-[13px] font-normal leading-[22px] md:leading-[22px] font-sans">
+      <div
+        className="self-stretch text-[13px] md:text-[13px] font-normal leading-[22px] md:leading-[22px] font-sans"
+        style={{ color: descColor }}
+      >
         {description}
       </div>
     </div>
