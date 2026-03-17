@@ -38,6 +38,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --font-inter: Arial, Helvetica, sans-serif;
+  /* Headlines use font-serif (Georgia) + font-bold */
   --font-instrument-serif: Georgia, "Times New Roman", serif;
 }
 
