@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
-import { Handshake } from "lucide-react"
+import { Calendar, Handshake } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
 import EffortlessIntegration from "../components/effortless-integration-updated"
@@ -240,6 +240,7 @@ export default function LandingPage() {
                     isActive={activeCard === 0}
                     progress={activeCard === 0 ? progress : 0}
                     onClick={() => handleCardClick(0)}
+                    icon={<Calendar className="h-4 w-4 shrink-0" />}
                   />
                   <FeatureCard
                     title="Analytics & insights"
