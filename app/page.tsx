@@ -26,10 +26,20 @@ function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
   )
 }
 
+const NATURE_IMAGES = [
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80", // misty mountain peaks
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80", // sunlit forest path
+  "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1920&q=80", // rolling green hills
+  "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1920&q=80", // calm lake reflection
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=80", // aerial valley view
+]
+
 export default function LandingPage() {
   const [activeCard, setActiveCard] = useState(0)
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
+  const [bgIndex, setBgIndex] = useState(0)
+  const [bgFading, setBgFading] = useState(false)
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -58,6 +68,17 @@ export default function LandingPage() {
     }
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBgFading(true)
+      setTimeout(() => {
+        setBgIndex((prev) => (prev + 1) % NATURE_IMAGES.length)
+        setBgFading(false)
+      }, 800)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   const handleCardClick = (index: number) => {
     if (!mountedRef.current) return
     setActiveCard(index)
@@ -79,6 +100,16 @@ export default function LandingPage() {
 
   return (
     <div className="w-full min-h-screen relative bg-[#F7F5F3] overflow-x-hidden flex flex-col justify-start items-center">
+      {/* Nature background slideshow — covers only the hero area */}
+      <div className="absolute inset-x-0 top-0 h-screen z-0 overflow-hidden pointer-events-none">
+        <img
+          src={NATURE_IMAGES[bgIndex]}
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ opacity: bgFading ? 0 : 0.18, transition: "opacity 0.8s ease-in-out" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F5F3]/30 via-[#F7F5F3]/60 to-[#F7F5F3]" />
+      </div>
       <div className="relative flex flex-col justify-start items-center w-full">
         {/* Main container with proper margins */}
         <div className="w-full max-w-none px-4 sm:px-6 md:px-8 lg:px-0 lg:max-w-[1060px] lg:w-[1060px] relative flex flex-col justify-start items-start min-h-screen">
