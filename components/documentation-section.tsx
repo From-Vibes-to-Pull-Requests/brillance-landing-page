@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import type React from "react"
+import { Handshake } from "lucide-react"
 
 // Badge component for consistency
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
@@ -100,10 +101,21 @@ export default function DocumentationSection() {
                     />
                   </div>
                   <div className="px-6 py-5 w-full flex flex-col gap-2">
-                    <div className="self-stretch flex justify-center flex-col text-[#49423D] text-sm font-semibold leading-6 font-sans">
-                      {card.title}
+                    <div
+                      className={`self-stretch flex items-center gap-2 text-sm font-semibold leading-6 font-sans ${
+                        card.title === "Collaborate seamlessly" ? "text-[#001f3f]" : "text-[#49423D]"
+                      }`}
+                    >
+                      {card.title === "Collaborate seamlessly" && (
+                        <Handshake className="h-4 w-4 shrink-0" />
+                      )}
+                      <span>{card.title}</span>
                     </div>
-                    <div className="self-stretch text-[#605A57] text-[13px] font-normal leading-[22px] font-sans whitespace-pre-line">
+                    <div
+                      className={`self-stretch text-[13px] font-normal leading-[22px] font-sans whitespace-pre-line ${
+                        card.title === "Collaborate seamlessly" ? "text-[#001f3f]" : "text-[#605A57]"
+                      }`}
+                    >
                       {card.description}
                     </div>
                   </div>
