@@ -156,16 +156,14 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              <div className="absolute top-[232px] sm:top-[248px] md:top-[264px] lg:top-[320px] left-1/2 transform -translate-x-1/2 z-0 pointer-events-none">
-                <img
-                  src="/mask-group-pattern.svg"
-                  alt=""
-                  className="w-[936px] sm:w-[1404px] md:w-[2106px] lg:w-[2808px] h-auto opacity-30 sm:opacity-40 md:opacity-50 mix-blend-multiply"
-                  style={{
-                    filter: "hue-rotate(15deg) saturate(0.7) brightness(1.2)",
-                  }}
-                />
-              </div>
+              <div
+                className="absolute top-[232px] sm:top-[248px] md:top-[264px] lg:top-[320px] left-1/2 transform -translate-x-1/2 z-0 pointer-events-none w-[936px] sm:w-[1404px] md:w-[2106px] lg:w-[2808px] aspect-[1060/949] opacity-30 sm:opacity-40 md:opacity-50 mix-blend-multiply bg-no-repeat bg-center bg-cover"
+                style={{
+                  backgroundImage: "url(/mask-group-pattern.svg)",
+                  filter: "hue-rotate(15deg) saturate(0.7) brightness(1.2)",
+                }}
+                aria-hidden
+              />
 
               <div className="w-full max-w-[960px] lg:w-[960px] pt-2 sm:pt-4 pb-6 sm:pb-8 md:pb-10 px-2 sm:px-4 md:px-6 lg:px-11 flex flex-col justify-center items-center gap-2 relative z-5 my-8 sm:my-12 md:my-16 lg:my-16 mb-0 lg:pb-0">
                 <div className="w-full max-w-[960px] lg:w-[960px] h-[200px] sm:h-[280px] md:h-[450px] lg:h-[695.55px] bg-white shadow-[0px_0px_0px_0.9056603908538818px_rgba(0,0,0,0.08)] overflow-hidden rounded-[6px] sm:rounded-[8px] lg:rounded-[9.06px] flex flex-col justify-start items-start">

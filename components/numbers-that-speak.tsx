@@ -251,8 +251,8 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                         >
                           <div
                             style={{
-                              fontFamily: "Inter, sans-serif",
-                              fontWeight: 600,
+                              fontFamily: "Georgia, serif",
+                              fontWeight: 300,
                               fontSize: "10.174px",
                               lineHeight: "18.783px",
                               color: "var(--nts-text-secondary)",
@@ -264,8 +264,8 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                           <div
                             className="tracking-widest"
                             style={{
-                              fontFamily: "Inter, sans-serif",
-                              fontWeight: 500,
+                              fontFamily: "Georgia, serif",
+                              fontWeight: 300,
                               fontSize: "18.783px",
                               lineHeight: "20.348px",
                               letterSpacing: "-0.587px",
@@ -360,8 +360,8 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                                     >
                                       <div
                                         style={{
-                                          fontFamily: "'Inter', sans-serif",
-                                          fontWeight: 500,
+                                          fontFamily: "Georgia, serif",
+                                          fontWeight: 300,
                                           fontSize: "7.826px",
                                           lineHeight: "14.087px",
                                           color: "var(--nts-text-muted)",
@@ -446,8 +446,8 @@ const NumbersThatSpeak: React.FC<NumbersThatSpeakProps> = ({
                                 <div
                                   style={{
                                     display: "flex",
-                                    fontFamily: "'Inter', sans-serif",
-                                    fontWeight: 500,
+                                    fontFamily: "Georgia, serif",
+                                    fontWeight: 300,
                                     alignItems: "center",
                                     justifyContent: "space-between",
                                     fontSize: "7.826px",
