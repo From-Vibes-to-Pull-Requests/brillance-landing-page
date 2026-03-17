@@ -165,7 +165,7 @@ export default function DocumentationSection() {
           <div className="w-full md:w-auto rounded-lg flex flex-col justify-center items-center gap-2 order-1 md:order-2 md:px-0 px-[00]">
             <div className="w-full md:w-[580px] h-[250px] md:h-[420px] bg-white shadow-[0px_0px_0px_0.9056603908538818px_rgba(0,0,0,0.08)] overflow-hidden rounded-lg flex flex-col justify-start items-start">
               <div
-                className="relative w-full h-full min-h-[250px] md:min-h-[420px] transition-all duration-300 flex flex-col items-start justify-start pt-4 pl-4"
+                className="relative w-full h-full transition-all duration-300 flex flex-col items-start justify-start p-4"
                 style={{
                   background:
                     activeCard === 0
@@ -177,25 +177,57 @@ export default function DocumentationSection() {
                           : undefined,
                 }}
               >
-                <div className="flex shrink-0 w-[160px] h-[160px] md:w-[224px] md:h-[224px] items-center justify-center">
-                  <Calendar
-                    size={160}
-                    strokeWidth={2}
-                    color="#228B22"
-                    className={activeCard === 0 ? "block" : "hidden"}
-                  />
-                  <Lightbulb
-                    size={160}
-                    strokeWidth={2}
-                    color="#C2410C"
-                    className={activeCard === 1 ? "block" : "hidden"}
-                  />
-                  <Handshake
-                    size={160}
-                    strokeWidth={2}
-                    color="#001f3f"
-                    className={activeCard === 2 ? "block" : "hidden"}
-                  />
+                <div className="flex flex-row items-center gap-3 md:gap-4 w-full">
+                  <div
+                    className={`flex shrink-0 items-center justify-center ${
+                      activeCard === 0 || activeCard === 1 || activeCard === 2
+                        ? "w-[100px] h-[100px] md:w-[140px] md:h-[140px]"
+                        : "w-[160px] h-[160px] md:w-[224px] md:h-[224px]"
+                    }`}
+                  >
+                    <Calendar
+                      size={activeCard === 0 ? 100 : 160}
+                      strokeWidth={2}
+                      color="#228B22"
+                      className={activeCard === 0 ? "block" : "hidden"}
+                    />
+                    <Lightbulb
+                      size={activeCard === 1 ? 100 : 160}
+                      strokeWidth={2}
+                      color="#C2410C"
+                      className={activeCard === 1 ? "block" : "hidden"}
+                    />
+                    <Handshake
+                      size={activeCard === 2 ? 100 : 160}
+                      strokeWidth={2}
+                      color="#001f3f"
+                      className={activeCard === 2 ? "block" : "hidden"}
+                    />
+                  </div>
+                  {activeCard === 0 && (
+                    <p
+                      className="flex-1 min-w-0 text-sm md:text-base font-semibold leading-snug italic break-words"
+                      style={{ color: "#228B22", fontStyle: "italic" }}
+                    >
+                      My schedules are now fully planned
+                    </p>
+                  )}
+                  {activeCard === 1 && (
+                    <p
+                      className="flex-1 min-w-0 text-sm md:text-base font-semibold leading-snug italic break-words"
+                      style={{ color: "#C2410C", fontStyle: "italic" }}
+                    >
+                      I have insights in minutes from my data
+                    </p>
+                  )}
+                  {activeCard === 2 && (
+                    <p
+                      className="flex-1 min-w-0 text-sm md:text-base font-semibold leading-snug italic break-words"
+                      style={{ color: "#001f3f", fontStyle: "italic" }}
+                    >
+                      I can collaborate without seams
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
