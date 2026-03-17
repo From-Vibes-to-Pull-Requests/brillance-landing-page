@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1",
+    "dev:kill": "(lsof -ti :3000 | xargs kill -9 2>/dev/null) || true && npm run dev",
     "lint": "next lint",
     "start": "next start"
   },
