@@ -194,22 +194,22 @@ export default function LandingPage() {
                           }`}
                         >
                           <img
-                            src="/analytics-dashboard-with-charts-graphs-and-data-vi.jpg"
+                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=960&q=80"
                             alt="Analytics Dashboard"
                             className="w-full h-full object-cover"
                           />
                         </div>
 
-                        {/* Product Image 3 - Data visualization */}
+                        {/* Product Image 3 - Collaborate seamlessly */}
                         <div
                           className={`absolute inset-0 transition-all duration-500 ease-in-out ${
                             activeCard === 2 ? "opacity-100 scale-100 blur-0" : "opacity-0 scale-95 blur-sm"
                           }`}
                         >
                           <img
-                            src="/data-visualization-dashboard-with-interactive-char.jpg"
-                            alt="Data Visualization Dashboard"
-                            className="w-full h-full object-contain" // Changed from object-cover to object-contain to preserve landscape aspect ratio
+                            src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=960&q=80"
+                            alt="Collaborative workflow dashboard"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       </div>
