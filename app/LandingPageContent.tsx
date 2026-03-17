@@ -13,6 +13,7 @@ import FAQSection from "../components/faq-section"
 import PricingSection from "../components/pricing-section"
 import CTASection from "../components/cta-section"
 import FooterSection from "../components/footer-section"
+import EarthFloatButton from "../components/earth-float-button"
 
 // Reusable Badge Component
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
@@ -118,12 +119,23 @@ export default function LandingPage() {
         <div className="w-full max-w-[980px] mx-auto px-6 h-12 flex items-center justify-between">
           {/* Logo + nav links */}
           <div className="flex items-center gap-8">
-            <span className="text-[#2F3037] text-lg font-medium leading-5 font-sans">Brillance</span>
+            <span
+              className="text-[#2F3037] text-lg font-medium leading-5 font-sans cursor-pointer"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Brillance
+            </span>
             <nav className="hidden md:flex items-center gap-6">
-              <span className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors">
+              <span
+                className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors"
+                onClick={() => document.getElementById("products-section")?.scrollIntoView({ behavior: "smooth" })}
+              >
                 Products
               </span>
-              <span className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors">
+              <span
+                className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors"
+                onClick={() => document.getElementById("pricing-section")?.scrollIntoView({ behavior: "smooth" })}
+              >
                 Pricing
               </span>
               <span className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors">
@@ -429,12 +441,19 @@ export default function LandingPage() {
       </section>
 
       {/* ── REMAINING SECTIONS ── */}
-      <DocumentationSection />
+      <div id="products-section">
+        <DocumentationSection />
+      </div>
       <TestimonialsSection />
-      <PricingSection />
+      <div id="pricing-section">
+        <PricingSection />
+      </div>
       <FAQSection />
       <CTASection />
       <FooterSection />
+
+      {/* ── FLOATING EARTH BUTTON ── */}
+      <EarthFloatButton />
 
     </div>
   )
