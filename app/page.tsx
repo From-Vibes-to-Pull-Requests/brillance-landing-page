@@ -126,7 +126,7 @@ export default function LandingPage() {
           src={NATURE_IMAGES[bgIndex].src}
           alt={NATURE_IMAGES[bgIndex].label}
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 0.55 }}
+          style={{ opacity: 0.70 }}
         />
         {/* Next image cross-fades in on top */}
         <img
@@ -134,7 +134,7 @@ export default function LandingPage() {
           alt={NATURE_IMAGES[bgNext].label}
           className="absolute inset-0 w-full h-full object-cover"
           style={{
-            opacity: bgTransitioning ? 0.55 : 0,
+            opacity: bgTransitioning ? 0.70 : 0,
             transition: bgTransitioning ? "opacity 1s ease-in-out" : "none",
           }}
         />
