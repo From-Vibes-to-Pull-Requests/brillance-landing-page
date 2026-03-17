@@ -52,6 +52,10 @@ Runs the production build. Run `npm run build` first.
 npm run lint
 ```
 
+### Deploy
+
+Deploy to [Vercel](https://vercel.com) with one click, or run `npm run build` and use your preferred Node host.
+
 ## Project structure
 
 - **`app/`** — Next.js App Router (layout, page, global styles)
