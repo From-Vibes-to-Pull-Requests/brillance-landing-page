@@ -116,6 +116,11 @@ export default function LandingPage() {
                         Docs
                       </div>
                     </div>
+                    <div className="flex justify-start items-center">
+                      <div className="flex flex-col justify-center text-[rgba(49,45,43,0.80)] text-xs md:text-[13px] font-medium leading-[14px] font-sans">
+                        Support
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="h-6 sm:h-7 md:h-8 flex justify-start items-start gap-2 sm:gap-3">
