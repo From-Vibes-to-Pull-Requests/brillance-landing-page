@@ -37,14 +37,13 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* Updated font variables with explicit fallbacks for deployment */
-  --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-instrument-serif: "Instrument Serif", ui-serif, serif;
+  /* Georgia Light as primary font (replaces Inter and Instrument Serif) */
+  --font-georgia-light: Georgia, serif;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-instrument-serif);
+  --font-sans: var(--font-georgia-light);
+  --font-serif: var(--font-georgia-light);
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -90,6 +89,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: Georgia, serif;
+    font-weight: 300;
   }
 }
 
@@ -102,21 +103,9 @@
   text-wrap: pretty;
 }
 
-.font-inter {
-  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.font-instrument-serif {
-  font-family: var(--font-instrument-serif);
-  font-display: swap;
-}
-
-/* Added explicit font loading optimization */
-@supports (font-display: swap) {
-  @font-face {
-    font-family: "Instrument Serif";
-    font-display: swap;
-  }
+.font-georgia-light {
+  font-family: Georgia, serif;
+  font-weight: 300;
 }
 
 .mix-blend-multiply {
@@ -125,4 +114,9 @@
 
 .backdrop-blur-custom {
   backdrop-filter: blur(8.25px);
+}
+
+/* Next.js dev tools portal - position fixed, no top/left override */
+nextjs-portal {
+  position: fixed !important;
 }

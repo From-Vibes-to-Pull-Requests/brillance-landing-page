@@ -121,8 +121,8 @@ const EffortlessIntegration: React.FC<EffortlessIntegrationProps> = ({ width = 4
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontFamily: "'Inter', sans-serif",
-            fontWeight: 700,
+            fontFamily: "Georgia, serif",
+            fontWeight: 300,
             fontSize: "32px",
             color: "#ffffff",
           }}
