@@ -44,6 +44,27 @@ export default function TestimonialsSection() {
       image:
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Sep%2011%2C%202025%2C%2011_01_05%20AM-TBOe92trRxKn4G5So1m9D2h7LRH4PG.png",
     },
+    {
+      quote:
+        "We switched from spreadsheets to Brillance and never looked back. Custom billing cycles and invoicing are finally on autopilot.",
+      name: "Elena Vasquez",
+      company: "Head of Finance, ScaleUp Labs",
+      image: "/professional-woman-avatar-with-short-brown-hair-an.jpg",
+    },
+    {
+      quote:
+        "Implementation was smooth and our team adopted it in a week. The ROI showed up in the first month—fewer late invoices, happier clients.",
+      name: "David Okonkwo",
+      company: "CFO, Meridian Growth",
+      image: "/professional-man-avatar-with-beard-and-glasses-loo.jpg",
+    },
+    {
+      quote:
+        "Finally, a billing tool that doesn't make me want to knock everything off the desk. Ten out of ten. Would recommend to any human—or cat.",
+      name: "Whiskers",
+      company: "Chief Mouser, Brillance",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/400px-Cat03.jpg",
+    },
   ]
 
   useEffect(() => {
@@ -90,7 +111,7 @@ export default function TestimonialsSection() {
             />
             <div className="flex-1 px-6 py-6 shadow-[0px_0px_0px_0.75px_rgba(50,45,43,0.12)] overflow-hidden flex flex-col justify-start items-start gap-6 shadow-none pb-0 pt-0">
               <div
-                className="self-stretch justify-start flex flex-col text-[#49423D] text-2xl md:text-[32px] font-medium leading-10 md:leading-[42px] font-sans h-[200px] md:h-[210px] overflow-hidden line-clamp-5 transition-all duration-700 ease-in-out tracking-tight"
+                className="self-stretch justify-start flex flex-col text-[#49423D] text-2xl md:text-[32px] font-bold leading-10 md:leading-[42px] font-serif h-[200px] md:h-[210px] overflow-hidden line-clamp-5 transition-all duration-700 ease-in-out tracking-tight"
                 style={{
                   filter: isTransitioning ? "blur(4px)" : "blur(0px)",
                   transition: "filter 0.7s ease-in-out",
