@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import type React from "react"
+import { Calendar, Handshake, Lightbulb } from "lucide-react"
 
 // Badge component for consistency
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
@@ -100,10 +101,43 @@ export default function DocumentationSection() {
                     />
                   </div>
                   <div className="px-6 py-5 w-full flex flex-col gap-2">
-                    <div className="self-stretch flex justify-center flex-col text-[#49423D] text-sm font-semibold leading-6 font-sans">
-                      {card.title}
+                    <div
+                      className="self-stretch flex items-center gap-2 text-sm font-semibold leading-6 font-sans"
+                      style={{
+                        color:
+                          card.title === "Plan your schedules"
+                            ? "#228B22"
+                            : card.title === "Data to insights in minutes"
+                              ? "#C2410C"
+                              : card.title === "Collaborate seamlessly"
+                                ? "#001f3f"
+                                : "#49423D",
+                      }}
+                    >
+                      {card.title === "Plan your schedules" && (
+                        <Calendar className="h-4 w-4 shrink-0" />
+                      )}
+                      {card.title === "Data to insights in minutes" && (
+                        <Lightbulb className="h-4 w-4 shrink-0" />
+                      )}
+                      {card.title === "Collaborate seamlessly" && (
+                        <Handshake className="h-4 w-4 shrink-0" />
+                      )}
+                      <span>{card.title}</span>
                     </div>
-                    <div className="self-stretch text-[#605A57] text-[13px] font-normal leading-[22px] font-sans whitespace-pre-line">
+                    <div
+                      className="self-stretch text-[13px] font-normal leading-[22px] font-sans whitespace-pre-line"
+                      style={{
+                        color:
+                          card.title === "Plan your schedules"
+                            ? "#228B22"
+                            : card.title === "Data to insights in minutes"
+                              ? "#C2410C"
+                              : card.title === "Collaborate seamlessly"
+                                ? "#001f3f"
+                                : "#605A57",
+                      }}
+                    >
                       {card.description}
                     </div>
                   </div>

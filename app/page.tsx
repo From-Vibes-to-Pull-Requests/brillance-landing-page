@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
+import { Calendar, Handshake } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
 import EffortlessIntegration from "../components/effortless-integration-updated"
@@ -26,10 +27,22 @@ function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
   )
 }
 
+const NATURE_IMAGES = [
+  { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85", label: "Misty Mountain Peaks" },
+  { src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=85", label: "Sunlit Forest Path" },
+  { src: "https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=1920&q=85", label: "Rolling Green Hills" },
+  { src: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1920&q=85", label: "Calm Lake Reflection" },
+  { src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1920&q=85", label: "Aerial Valley View" },
+]
+
 export default function LandingPage() {
   const [activeCard, setActiveCard] = useState(0)
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
+  const [bgIndex, setBgIndex] = useState(0)
+  const [bgNext, setBgNext] = useState(1)
+  const [bgTransitioning, setBgTransitioning] = useState(false)
+  const [bgProgress, setBgProgress] = useState(0)
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
@@ -58,6 +71,34 @@ export default function LandingPage() {
     }
   }, [])
 
+  useEffect(() => {
+    // Progress bar ticks every 50ms → 100 ticks in 5000ms
+    const progressInterval = setInterval(() => {
+      setBgProgress((prev) => {
+        if (prev >= 100) return 0
+        return prev + 2
+      })
+    }, 100)
+
+    const slideInterval = setInterval(() => {
+      setBgTransitioning(true)
+      setTimeout(() => {
+        setBgIndex((prev) => {
+          const next = (prev + 1) % NATURE_IMAGES.length
+          setBgNext((next + 1) % NATURE_IMAGES.length)
+          return next
+        })
+        setBgTransitioning(false)
+        setBgProgress(0)
+      }, 1000)
+    }, 5000)
+
+    return () => {
+      clearInterval(progressInterval)
+      clearInterval(slideInterval)
+    }
+  }, [])
+
   const handleCardClick = (index: number) => {
     if (!mountedRef.current) return
     setActiveCard(index)
@@ -79,6 +120,62 @@ export default function LandingPage() {
 
   return (
     <div className="w-full min-h-screen relative bg-[#F7F5F3] overflow-x-hidden flex flex-col justify-start items-center">
+      {/* Nature background slideshow */}
+      <div className="absolute inset-x-0 top-0 h-screen z-0 overflow-hidden pointer-events-none">
+        {/* Base image (always visible) */}
+        <img
+          src={NATURE_IMAGES[bgIndex].src}
+          alt={NATURE_IMAGES[bgIndex].label}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.70 }}
+        />
+        {/* Next image cross-fades in on top */}
+        <img
+          src={NATURE_IMAGES[bgNext].src}
+          alt={NATURE_IMAGES[bgNext].label}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            opacity: bgTransitioning ? 0.70 : 0,
+            transition: bgTransitioning ? "opacity 1s ease-in-out" : "none",
+          }}
+        />
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F7F5F3]/10 via-[#F7F5F3]/40 to-[#F7F5F3]" />
+        {/* Subtle vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(247,245,243,0.5)_100%)]" />
+
+        {/* Slide indicators — bottom centre */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 pointer-events-auto z-10">
+          {/* Progress bar */}
+          <div className="w-24 h-[2px] bg-[rgba(55,50,47,0.15)] rounded-full overflow-hidden">
+            <div
+              className="h-full bg-[rgba(55,50,47,0.5)] rounded-full"
+              style={{ width: `${bgProgress}%`, transition: "width 0.1s linear" }}
+            />
+          </div>
+          {/* Dot indicators */}
+          <div className="flex gap-[6px] items-center">
+            {NATURE_IMAGES.map((img, i) => (
+              <button
+                key={img.label}
+                aria-label={img.label}
+                onClick={() => {
+                  setBgIndex(i)
+                  setBgNext((i + 1) % NATURE_IMAGES.length)
+                  setBgProgress(0)
+                  setBgTransitioning(false)
+                }}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: i === bgIndex ? 20 : 6,
+                  height: 6,
+                  background: i === bgIndex ? "rgba(55,50,47,0.6)" : "rgba(55,50,47,0.25)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
       <div className="relative flex flex-col justify-start items-center w-full">
         {/* Main container with proper margins */}
         <div className="w-full max-w-none px-4 sm:px-6 md:px-8 lg:px-0 lg:max-w-[1060px] lg:w-[1060px] relative flex flex-col justify-start items-start min-h-screen">
@@ -116,14 +213,24 @@ export default function LandingPage() {
                         Docs
                       </div>
                     </div>
+                    <div className="flex justify-start items-center">
+                      <div className="flex flex-col justify-center text-[rgba(49,45,43,0.80)] text-xs md:text-[13px] font-medium leading-[14px] font-sans">
+                        Support
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="h-6 sm:h-7 md:h-8 flex justify-start items-start gap-2 sm:gap-3">
-                  <div className="px-2 sm:px-3 md:px-[14px] py-1 sm:py-[6px] bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] overflow-hidden rounded-full flex justify-center items-center">
-                    <div className="flex flex-col justify-center text-[#37322F] text-xs md:text-[13px] font-medium leading-5 font-sans">
-                      Log in
-                    </div>
+                  <a
+                  href="https://www.youtube.com/watch?v=9XiI-0f8jHI"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2 sm:px-3 md:px-[14px] py-1 sm:py-[6px] bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] overflow-hidden rounded-full flex justify-center items-center"
+                >
+                  <div className="flex flex-col justify-center text-blue-600 text-xs md:text-[13px] font-medium leading-5 font-sans">
+                    Log in
                   </div>
+                </a>
                 </div>
               </div>
             </div>
@@ -135,7 +242,7 @@ export default function LandingPage() {
                   <div className="w-full max-w-[748.71px] lg:w-[748.71px] text-center flex justify-center flex-col text-[#37322F] text-[24px] xs:text-[28px] sm:text-[36px] md:text-[52px] lg:text-[80px] font-bold leading-[1.1] sm:leading-[1.15] md:leading-[1.2] lg:leading-24 font-serif px-2 sm:px-4 md:px-0">
                     Effortless custom contract
                     <br />
-                    billing by Brillance
+                    billing by Brillance now at $2.99 per month!
                   </div>
                   <div className="w-full max-w-[506.08px] lg:w-[506.08px] text-center flex justify-center flex-col text-[rgba(55,50,47,0.80)] sm:text-lg md:text-xl leading-[1.4] sm:leading-[1.45] md:leading-[1.5] lg:leading-7 font-sans px-2 sm:px-4 md:px-0 lg:text-lg font-medium text-sm">
                     Streamline your billing process with seamless automation
@@ -147,12 +254,12 @@ export default function LandingPage() {
 
               <div className="w-full max-w-[497px] lg:w-[497px] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-10 lg:gap-12 relative z-10 mt-6 sm:mt-8 md:mt-10 lg:mt-12">
                 <div className="backdrop-blur-[8.25px] flex justify-start items-center gap-4">
-                  <div className="h-10 sm:h-11 md:h-12 px-6 sm:px-8 md:px-10 lg:px-12 py-2 sm:py-[6px] relative bg-[#37322F] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full flex justify-center items-center">
+                  <a href="https://edition.cnn.com/2026/03/14/asia/japan-punch-monkey-makes-friends-intl-hnk" target="_blank" rel="noopener noreferrer" className="h-10 sm:h-11 md:h-12 px-6 sm:px-8 md:px-10 lg:px-12 py-2 sm:py-[6px] relative bg-[#2563eb] hover:bg-[#1d4ed8] shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset] overflow-hidden rounded-full flex justify-center items-center cursor-pointer transition-colors">
                     <div className="w-20 sm:w-24 md:w-28 lg:w-44 h-[41px] absolute left-0 top-[-0.5px] bg-gradient-to-b from-[rgba(255,255,255,0)] to-[rgba(0,0,0,0.10)] mix-blend-multiply"></div>
                     <div className="flex flex-col justify-center text-white text-sm sm:text-base md:text-[15px] font-medium leading-5 font-sans">
-                      Sign up for free
+                      Start after you deposit $1000 cash
                     </div>
-                  </div>
+                  </a>
                 </div>
               </div>
 
@@ -194,22 +301,22 @@ export default function LandingPage() {
                           }`}
                         >
                           <img
-                            src="/analytics-dashboard-with-charts-graphs-and-data-vi.jpg"
+                            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=960&q=80"
                             alt="Analytics Dashboard"
                             className="w-full h-full object-cover"
                           />
                         </div>
 
-                        {/* Product Image 3 - Data visualization */}
+                        {/* Product Image 3 - Collaborate seamlessly */}
                         <div
                           className={`absolute inset-0 transition-all duration-500 ease-in-out ${
                             activeCard === 2 ? "opacity-100 scale-100 blur-0" : "opacity-0 scale-95 blur-sm"
                           }`}
                         >
                           <img
-                            src="/data-visualization-dashboard-with-interactive-char.jpg"
-                            alt="Data Visualization Dashboard"
-                            className="w-full h-full object-contain" // Changed from object-cover to object-contain to preserve landscape aspect ratio
+                            src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=960&q=80"
+                            alt="Collaborative workflow dashboard"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       </div>
@@ -239,9 +346,10 @@ export default function LandingPage() {
                     isActive={activeCard === 0}
                     progress={activeCard === 0 ? progress : 0}
                     onClick={() => handleCardClick(0)}
+                    icon={<Calendar className="h-4 w-4 shrink-0" />}
                   />
                   <FeatureCard
-                    title="Analytics & insights"
+                    title="Analytics & Insights"
                     description="Transform your business data into actionable insights with real-time analytics."
                     isActive={activeCard === 1}
                     progress={activeCard === 1 ? progress : 0}
@@ -253,6 +361,8 @@ export default function LandingPage() {
                     isActive={activeCard === 2}
                     progress={activeCard === 2 ? progress : 0}
                     onClick={() => handleCardClick(2)}
+                    titleClassName="text-[#001f3f]"
+                    icon={<Handshake className="h-4 w-4 shrink-0" />}
                   />
                 </div>
 
@@ -549,12 +659,16 @@ function FeatureCard({
   isActive,
   progress,
   onClick,
+  titleClassName,
+  icon,
 }: {
   title: string
   description: string
   isActive: boolean
   progress: number
   onClick: () => void
+  titleClassName?: string
+  icon?: React.ReactNode
 }) {
   return (
     <div
@@ -574,8 +688,9 @@ function FeatureCard({
         </div>
       )}
 
-      <div className="self-stretch flex justify-center flex-col text-[#49423D] text-sm md:text-sm font-semibold leading-6 md:leading-6 font-sans">
-        {title}
+      <div className={`self-stretch flex items-center gap-2 text-sm md:text-sm font-semibold leading-6 md:leading-6 font-sans ${titleClassName ?? "text-[#49423D]"}`}>
+        {icon}
+        <span>{title}</span>
       </div>
       <div className="self-stretch text-[#605A57] text-[13px] md:text-[13px] font-normal leading-[22px] md:leading-[22px] font-sans">
         {description}
