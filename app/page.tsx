@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
+import { Calendar, Handshake } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
 import EffortlessIntegration from "../components/effortless-integration-updated"
@@ -345,6 +346,7 @@ export default function LandingPage() {
                     isActive={activeCard === 0}
                     progress={activeCard === 0 ? progress : 0}
                     onClick={() => handleCardClick(0)}
+                    icon={<Calendar className="h-4 w-4 shrink-0" />}
                   />
                   <FeatureCard
                     title="Analytics & Insights"
@@ -359,6 +361,8 @@ export default function LandingPage() {
                     isActive={activeCard === 2}
                     progress={activeCard === 2 ? progress : 0}
                     onClick={() => handleCardClick(2)}
+                    titleClassName="text-[#001f3f]"
+                    icon={<Handshake className="h-4 w-4 shrink-0" />}
                   />
                 </div>
 
@@ -655,12 +659,16 @@ function FeatureCard({
   isActive,
   progress,
   onClick,
+  titleClassName,
+  icon,
 }: {
   title: string
   description: string
   isActive: boolean
   progress: number
   onClick: () => void
+  titleClassName?: string
+  icon?: React.ReactNode
 }) {
   return (
     <div
@@ -680,8 +688,9 @@ function FeatureCard({
         </div>
       )}
 
-      <div className="self-stretch flex justify-center flex-col text-[#49423D] text-sm md:text-sm font-semibold leading-6 md:leading-6 font-sans">
-        {title}
+      <div className={`self-stretch flex items-center gap-2 text-sm md:text-sm font-semibold leading-6 md:leading-6 font-sans ${titleClassName ?? "text-[#49423D]"}`}>
+        {icon}
+        <span>{title}</span>
       </div>
       <div className="self-stretch text-[#605A57] text-[13px] md:text-[13px] font-normal leading-[22px] md:leading-[22px] font-sans">
         {description}
