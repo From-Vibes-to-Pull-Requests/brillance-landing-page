@@ -14,6 +14,7 @@ import FAQSection from "../components/faq-section"
 import PricingSection from "../components/pricing-section"
 import CTASection from "../components/cta-section"
 import FooterSection from "../components/footer-section"
+import AstronautIntro from "../components/astronaut-intro"
 
 // Reusable Badge Component
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
@@ -36,6 +37,7 @@ const NATURE_IMAGES = [
 ]
 
 export default function LandingPage() {
+  const [introComplete, setIntroComplete] = useState(false)
   const [activeCard, setActiveCard] = useState(0)
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
@@ -119,7 +121,15 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="w-full min-h-screen relative bg-[#F7F5F3] overflow-x-hidden flex flex-col justify-start items-center">
+    <>
+      {!introComplete && <AstronautIntro onComplete={() => setIntroComplete(true)} />}
+      <div
+        style={{
+          opacity: introComplete ? 1 : 0,
+          transition: introComplete ? "opacity 0.6s ease" : "none",
+        }}
+        className="w-full min-h-screen relative bg-[#F7F5F3] overflow-x-hidden flex flex-col justify-start items-center"
+      >
       {/* Nature background slideshow */}
       <div className="absolute inset-x-0 top-0 h-screen z-0 overflow-hidden pointer-events-none">
         {/* Base image (always visible) */}
@@ -648,7 +658,8 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 
