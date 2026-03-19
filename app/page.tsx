@@ -337,7 +337,7 @@ export default function LandingPage() {
                     onClick={() => handleCardClick(0)}
                   />
                   <FeatureCard
-                    title="Analytics & insights"
+                    title="Analytics & Insights"
                     description="Transform your business data into actionable insights with real-time analytics."
                     isActive={activeCard === 1}
                     progress={activeCard === 1 ? progress : 0}
