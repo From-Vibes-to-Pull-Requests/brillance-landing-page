@@ -145,6 +145,13 @@ export default function FooterSection() {
           </div>
         </div>
       </div>
+
+      {/* Credits */}
+      <div className="w-full py-6 flex justify-center items-center border-t border-[rgba(55,50,47,0.12)]">
+        <p className="text-[#605A57] text-sm font-normal font-sans">
+          Made with <span className="inline-block" aria-hidden="true">💙</span> by TEDI
+        </p>
+      </div>
     </div>
   )
 }
