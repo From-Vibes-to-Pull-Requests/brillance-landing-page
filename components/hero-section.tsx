@@ -21,7 +21,9 @@ export function HeroSection() {
           {/* CTA Button */}
           <div className="flex justify-center">
             <Button className="h-10 px-12 bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-full font-medium text-sm shadow-[0px_0px_0px_2.5px_rgba(255,255,255,0.08)_inset]">
-              Start after you deposit $1000 cash
+              <a href="https://edition.cnn.com/2026/03/14/asia/japan-punch-monkey-makes-friends-intl-hnk" target="_blank" rel="noopener noreferrer">
+                Start after you deposit $1000 cash
+              </a>
             </Button>
           </div>
         </div>

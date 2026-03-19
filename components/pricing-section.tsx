@@ -167,12 +167,12 @@ export default function PricingSection() {
                   </div>
                 </div>
 
-                <div className="self-stretch px-4 py-[10px] relative bg-[#2563eb] shadow-[0px_2px_4px_rgba(55,50,47,0.12)] overflow-hidden rounded-[99px] flex justify-center items-center">
+                <a href="https://edition.cnn.com/2026/03/14/asia/japan-punch-monkey-makes-friends-intl-hnk" target="_blank" rel="noopener noreferrer" className="self-stretch px-4 py-[10px] relative bg-[#2563eb] shadow-[0px_2px_4px_rgba(55,50,47,0.12)] overflow-hidden rounded-[99px] flex justify-center items-center">
                   <div className="w-full h-[41px] absolute left-0 top-[-0.5px] bg-gradient-to-b from-[rgba(255,255,255,0.20)] to-[rgba(0,0,0,0.10)] mix-blend-multiply"></div>
                   <div className="max-w-[108px] flex justify-center flex-col text-white text-[13px] font-medium leading-5 font-sans">
                     Start after you deposit $1000 cash
                   </div>
-                </div>
+                </a>
               </div>
 
               <div className="self-stretch flex flex-col justify-start items-start gap-2">
