@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { createPortal } from "react-dom"
 
 // ── Mini Earth SVG reused inside the modal ──────────────────────────────────
@@ -106,8 +106,9 @@ const FEATURES = [
 // ── Modal ────────────────────────────────────────────────────────────────────
 function BrillanceModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
+    if (!open) return
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose() }
-    if (open) document.addEventListener("keydown", handler)
+    document.addEventListener("keydown", handler)
     return () => document.removeEventListener("keydown", handler)
   }, [open, onClose])
 
@@ -353,25 +354,44 @@ export default function EarthFloatButton() {
   const [clicked, setClicked] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const clickedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => { setMounted(true) }, [])
 
   useEffect(() => {
+    // Both timer IDs are tracked so cleanup always cancels whichever is
+    // pending at unmount — the next outer blink OR the 150ms setBlink(false).
+    const outerTimer = { current: null as ReturnType<typeof setTimeout> | null }
+    const innerTimer = { current: null as ReturnType<typeof setTimeout> | null }
+
     const scheduleBlink = () => {
       const delay = 2000 + Math.random() * 3000
-      return setTimeout(() => {
+      outerTimer.current = setTimeout(() => {
         setBlink(true)
-        setTimeout(() => setBlink(false), 150)
+        innerTimer.current = setTimeout(() => setBlink(false), 150)
         scheduleBlink()
       }, delay)
     }
-    const timer = scheduleBlink()
-    return () => clearTimeout(timer)
+
+    scheduleBlink()
+    return () => {
+      if (outerTimer.current) clearTimeout(outerTimer.current)
+      if (innerTimer.current) clearTimeout(innerTimer.current)
+    }
+  }, [])
+
+  // Clears the clicked-reset timer if the component unmounts before it fires.
+  useEffect(() => {
+    return () => {
+      if (clickedTimerRef.current) clearTimeout(clickedTimerRef.current)
+    }
   }, [])
 
   const handleClick = useCallback(() => {
     setClicked(true)
-    setTimeout(() => setClicked(false), 600)
+    // Cancel any in-flight reset before scheduling a new one (rapid clicks).
+    if (clickedTimerRef.current) clearTimeout(clickedTimerRef.current)
+    clickedTimerRef.current = setTimeout(() => setClicked(false), 600)
     setModalOpen(true)
   }, [])
 
@@ -509,11 +529,18 @@ export default function EarthFloatButton() {
             <ellipse cx={hovered ? 44.3 : 43} cy={hovered ? 33 : 34} rx="1.2" ry={blink ? 0.2 : 1.4} fill="#0a0a1a" style={{ transition: "all 0.15s ease" }} />
             <ellipse cx="44.2" cy="32.5" rx="0.8" ry="0.7" fill="white" opacity={blink ? 0 : 0.9} style={{ transition: "opacity 0.08s" }} />
 
-            {/* Smile */}
+            {/* Smile — two paths crossfaded via opacity (CSS cannot animate `d`) */}
             <path
-              d={hovered ? "M 28 42 Q 36 48 44 42" : "M 29 41.5 Q 36 46 43 41.5"}
+              d="M 29 41.5 Q 36 46 43 41.5"
               fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round"
-              style={{ transition: "d 0.2s ease" }} opacity="0.92"
+              opacity={hovered ? 0 : 0.92}
+              style={{ transition: "opacity 0.2s ease" }}
+            />
+            <path
+              d="M 28 42 Q 36 48 44 42"
+              fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round"
+              opacity={hovered ? 0.92 : 0}
+              style={{ transition: "opacity 0.2s ease" }}
             />
 
             <ellipse cx="36" cy="36" rx="34" ry="7" fill="none" stroke="url(#ring1Grad)" strokeWidth="1.5"

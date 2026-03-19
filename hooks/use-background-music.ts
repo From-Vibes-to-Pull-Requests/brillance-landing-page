@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useCallback } from "react"
+import { useRef, useState, useCallback, useEffect } from "react"
 
 const LOOP_DURATION = 15 // seconds
 
@@ -183,6 +183,7 @@ export function useBackgroundMusic() {
   const audioCtxRef = useRef<AudioContext | null>(null)
   const masterGainRef = useRef<GainNode | null>(null)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const fadeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const loopCountRef = useRef(0)
 
   const scheduleNextLoop = useCallback((ctx: AudioContext, masterGain: GainNode, iteration: number) => {
@@ -215,18 +216,32 @@ export function useBackgroundMusic() {
       clearTimeout(timerRef.current)
       timerRef.current = null
     }
-    if (masterGainRef.current && audioCtxRef.current) {
-      const gain = masterGainRef.current
-      const ctx = audioCtxRef.current
+    // Capture and immediately clear refs so play() can safely re-enter
+    // during the fade-out window without hitting the guard.
+    const ctx = audioCtxRef.current
+    const gain = masterGainRef.current
+    audioCtxRef.current = null
+    masterGainRef.current = null
+
+    if (gain && ctx) {
       gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime)
       gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.3)
-      setTimeout(() => {
+      // Track this timeout so the unmount cleanup can cancel it if the
+      // component unmounts before the 350ms fade completes.
+      fadeTimerRef.current = setTimeout(() => {
         ctx.close()
-        audioCtxRef.current = null
-        masterGainRef.current = null
+        fadeTimerRef.current = null
       }, 350)
     }
     setIsPlaying(false)
+  }, [])
+
+  // Cancel any in-flight fade-out timer when the hook's owner unmounts.
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current)
+      if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current)
+    }
   }, [])
 
   const toggle = useCallback(() => {

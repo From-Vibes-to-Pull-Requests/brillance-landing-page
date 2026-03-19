@@ -78,15 +78,23 @@ export default function LandingPage() {
   }, [])
 
   useEffect(() => {
+    // Track the inner timeout so cleanup can cancel it if it's still pending
+    // when the component unmounts (e.g. if unmount happens in the 1s window
+    // between setBgTransitioning(true) and the state-update callback).
+    const slideTimeout = { current: null as ReturnType<typeof setTimeout> | null }
+
     const progressInterval = setInterval(() => {
       setBgProgress((prev) => {
         if (prev >= 100) return 0
         return prev + 2
       })
     }, 100)
+
     const slideInterval = setInterval(() => {
+      if (!mountedRef.current) return
       setBgTransitioning(true)
-      setTimeout(() => {
+      slideTimeout.current = setTimeout(() => {
+        if (!mountedRef.current) return
         setBgIndex((prev) => {
           const next = (prev + 1) % NATURE_IMAGES.length
           setBgNext((next + 1) % NATURE_IMAGES.length)
@@ -96,9 +104,11 @@ export default function LandingPage() {
         setBgProgress(0)
       }, 1000)
     }, 5000)
+
     return () => {
       clearInterval(progressInterval)
       clearInterval(slideInterval)
+      if (slideTimeout.current) clearTimeout(slideTimeout.current)
     }
   }, [])
 
@@ -141,7 +151,10 @@ export default function LandingPage() {
               >
                 Pricing
               </span>
-              <span className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors">
+              <span
+                className="text-[rgba(49,45,43,0.80)] text-[13px] font-medium leading-[14px] font-sans cursor-pointer hover:text-[#37322F] transition-colors"
+                onClick={() => document.getElementById("docs-section")?.scrollIntoView({ behavior: "smooth" })}
+              >
                 Docs
               </span>
             </nav>
@@ -465,7 +478,9 @@ export default function LandingPage() {
 
       {/* ── REMAINING SECTIONS ── */}
       <div id="products-section">
-        <DocumentationSection />
+        <div id="docs-section">
+          <DocumentationSection />
+        </div>
       </div>
       <TestimonialsSection />
       <div id="pricing-section">
