@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useCallback, useState, useEffect, useRef } from "react"
-import { Calendar, Handshake } from "lucide-react"
+import { Calendar, Handshake, Music, Music2 } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
 import EffortlessIntegration from "../components/effortless-integration-updated"
@@ -15,6 +15,7 @@ import PricingSection from "../components/pricing-section"
 import CTASection from "../components/cta-section"
 import FooterSection from "../components/footer-section"
 import AstronautIntro from "../components/astronaut-intro"
+import { useBackgroundMusic } from "@/hooks/use-background-music"
 
 // Reusable Badge Component
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
@@ -39,6 +40,7 @@ const NATURE_IMAGES = [
 export default function LandingPage() {
   const [introComplete, setIntroComplete] = useState(false)
   const handleIntroComplete = useCallback(() => setIntroComplete(true), [])
+  const { isPlaying: musicPlaying, toggle: toggleMusic } = useBackgroundMusic()
   const [activeCard, setActiveCard] = useState(0)
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
@@ -232,7 +234,23 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
-                <div className="h-6 sm:h-7 md:h-8 flex justify-start items-start gap-2 sm:gap-3">
+                <div className="h-6 sm:h-7 md:h-8 flex justify-start items-center gap-2 sm:gap-3">
+                  <button
+                    onClick={toggleMusic}
+                    aria-label={musicPlaying ? "Turn off background music" : "Turn on background music"}
+                    title={musicPlaying ? "Music on - click to turn off" : "Music off - click to turn on"}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 ${
+                      musicPlaying
+                        ? "bg-white shadow-[0px_1px_2px_rgba(55,50,47,0.12)] text-[#37322F] hover:shadow-[0px_2px_4px_rgba(55,50,47,0.16)]"
+                        : "text-[rgba(55,50,47,0.35)] hover:text-[#37322F] hover:bg-white/60"
+                    }`}
+                  >
+                    {musicPlaying ? (
+                      <Music2 size={15} className="animate-[pulse_1.5s_ease-in-out_infinite]" />
+                    ) : (
+                      <Music size={15} />
+                    )}
+                  </button>
                   <a
                   href="https://www.youtube.com/watch?v=9XiI-0f8jHI"
                   target="_blank"
