@@ -10,7 +10,7 @@ export default function AstronautIntro({ onComplete }: { onComplete: () => void 
 
   useEffect(() => {
     const t1 = setTimeout(() => setFading(true), 4300)
-    const t2 = setTimeout(() => onComplete(), 5000)
+    const t2 = setTimeout(() => onComplete(), 5100)
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [onComplete])
 

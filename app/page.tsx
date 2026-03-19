@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useCallback, useState, useEffect, useRef } from "react"
 import { Calendar, Handshake } from "lucide-react"
 import SmartSimpleBrilliant from "../components/smart-simple-brilliant"
 import YourWorkInSync from "../components/your-work-in-sync"
@@ -38,6 +38,7 @@ const NATURE_IMAGES = [
 
 export default function LandingPage() {
   const [introComplete, setIntroComplete] = useState(false)
+  const handleIntroComplete = useCallback(() => setIntroComplete(true), [])
   const [activeCard, setActiveCard] = useState(0)
   const [progress, setProgress] = useState(0)
   const mountedRef = useRef(true)
@@ -122,11 +123,12 @@ export default function LandingPage() {
 
   return (
     <>
-      {!introComplete && <AstronautIntro onComplete={() => setIntroComplete(true)} />}
+      {!introComplete && <AstronautIntro onComplete={handleIntroComplete} />}
       <div
         style={{
           opacity: introComplete ? 1 : 0,
           transition: introComplete ? "opacity 0.6s ease" : "none",
+          pointerEvents: introComplete ? "auto" : "none",
         }}
         className="w-full min-h-screen relative bg-[#F7F5F3] overflow-x-hidden flex flex-col justify-start items-center"
       >
