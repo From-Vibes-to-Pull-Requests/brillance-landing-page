@@ -458,19 +458,30 @@ export default function LandingPage() {
                   </div>
 
                   <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-0 border-l border-r border-[rgba(55,50,47,0.12)]">
-                    {/* Logo Grid - Responsive grid */}
-                    {Array.from({ length: 8 }).map((_, index) => {
+                    {/* Logo Grid - logos from logo.dev API (set NEXT_PUBLIC_LOGO_DEV_PUBLISHABLE_KEY in .env.local) */}
+                    {[
+                      { domain: "shopify.com", name: "Shopify" },
+                      { domain: "stripe.com", name: "Stripe" },
+                      { domain: "slack.com", name: "Slack" },
+                      { domain: "notion.so", name: "Notion" },
+                      { domain: "figma.com", name: "Figma" },
+                      { domain: "zoom.us", name: "Zoom" },
+                      { domain: "dropbox.com", name: "Dropbox" },
+                      { domain: "spotify.com", name: "Spotify" },
+                    ].map((company, index) => {
                       const isMobileFirstColumn = index % 2 === 0
-                      const isMobileLastColumn = index % 2 === 1
                       const isDesktopFirstColumn = index % 4 === 0
                       const isDesktopLastColumn = index % 4 === 3
-                      const isMobileBottomRow = index >= 6
                       const isDesktopTopRow = index < 4
                       const isDesktopBottomRow = index >= 4
+                      const logoToken = process.env.NEXT_PUBLIC_LOGO_DEV_PUBLISHABLE_KEY
+                      const logoUrl = logoToken
+                        ? `https://img.logo.dev/${encodeURIComponent(company.domain)}?token=${logoToken}&size=80&format=png&theme=light`
+                        : null
 
                       return (
                         <div
-                          key={index}
+                          key={company.domain}
                           className={`
                             h-24 xs:h-28 sm:h-32 md:h-36 lg:h-40 flex justify-center items-center gap-1 xs:gap-2 sm:gap-3
                             border-b border-[rgba(227,226,225,0.5)]
@@ -485,11 +496,21 @@ export default function LandingPage() {
                             border-[#E3E2E1]
                           `}
                         >
-                          <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 relative shadow-[0px_-4px_8px_rgba(255,255,255,0.64)_inset] overflow-hidden rounded-full">
-                            <img src="/horizon-icon.svg" alt="Horizon" className="w-full h-full object-contain" />
+                          <div className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 relative shadow-[0px_-4px_8px_rgba(255,255,255,0.64)_inset] overflow-hidden rounded-full flex items-center justify-center bg-white">
+                            {logoUrl ? (
+                              <img
+                                src={logoUrl}
+                                alt={`${company.name} logo`}
+                                className="w-full h-full object-contain"
+                              />
+                            ) : (
+                              <span className="text-[#37322F] text-xs font-medium">
+                                {company.name.slice(0, 1)}
+                              </span>
+                            )}
                           </div>
                           <div className="text-center flex justify-center flex-col text-[#37322F] text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl font-medium leading-tight md:leading-9 font-sans">
-                            Acute
+                            {company.name}
                           </div>
                         </div>
                       )
