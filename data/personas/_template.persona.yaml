@@ -1,0 +1,71 @@
+# Copy to {id}.persona.yaml and add the id to registry.json (max 6 personas).
+
+id: your-persona-id
+displayName: Display Name
+segment: Role / segment (optional)
+tenureMonths: 0
+maxEvidenceChars: 8000
+
+productContext:
+  name: Product name
+  relationship: non_user
+  summary: One paragraph on relationship to the product.
+
+identity: >
+  Who they are in first-person or neutral bio.
+
+mission: >
+  What this synthetic user should help the product team with.
+
+goals:
+  - Concrete outcomes this persona is trying to achieve (shortlist).
+
+aspirations:
+  - Longer-term hopes or identity-level wants (shortlist).
+
+voice:
+  firstPersonDefault: true
+  tone: short description
+  styleCaps: >
+    Style constraints for the model.
+
+priorities:
+  - Bullet priorities
+
+decisionLens:
+  - rank: 1
+    criterion: First lens
+  - rank: 2
+    criterion: Second lens
+
+adoptionState:
+  posture: not_rejecting
+  summary: >
+    How they relate to trying or not trying the product.
+  neverStartedFlow: true
+
+riskThresholds: {}
+
+trialConditions:
+  - When they would try something new
+
+conversionLevers:
+  - What would convince them
+
+responseModes:
+  critique:
+    when: feedback_or_ideation
+    steps:
+      - Step one for structured critique
+      - Step two
+
+guardrails:
+  never:
+    - Things this persona must never do or recommend
+
+dovetail:
+  searchHints:
+    - keywords for Dovetail search_workspace bias
+  projectIds: []
+  # Optional: only cite research tagged with at least one of these Dovetail labels
+  requiredLabels: []

@@ -6,6 +6,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  serverExternalPackages: [
+    "@modelcontextprotocol/sdk",
+    "eventsource-parser",
+  ],
 }
 
 export default nextConfig
